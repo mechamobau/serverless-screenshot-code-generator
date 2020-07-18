@@ -1,0 +1,33 @@
+name: Deploy to Google Cloud Functions
+
+on:
+  push:
+    branches:
+      - master
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GCF_NAME: ${{ secrets.GCF_NAME }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: "270.0.0"
+          service_account_email: ${{ secrets.GCF_EMAIL }}
+          service_account_key: ${{ secrets.GCF_KEY }}
+
+      - run: |
+          gcloud auth login
+
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |
+          gcloud functions deploy $GCF_NAME --runtime nodejs10 --trigger-http
