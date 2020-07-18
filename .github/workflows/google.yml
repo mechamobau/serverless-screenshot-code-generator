@@ -8,6 +8,7 @@ on:
 # Environment variables available to all jobs and steps in this workflow
 env:
   GCF_NAME: ${{ secrets.GCF_NAME }}
+  GCF_PROJECT: ${{ secrets.GCF_PROJECT }}
 
 jobs:
   deploy:
@@ -27,4 +28,4 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |
-          gcloud functions deploy $GCF_NAME --runtime nodejs10 --trigger-http
+          gcloud functions deploy $GCF_NAME --runtime nodejs10 --trigger-http --project $GCF_PROJECT
