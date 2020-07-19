@@ -2,8 +2,6 @@ const puppeteer = require("puppeteer");
 
 const qs = require("querystring");
 
-const REGEX = /#CodeBot\s(\w+)\n(((.*)[\n\S\s])+)/;
-
 async function closeFullpageBanner(page) {
 	await page.evaluate(() => {
 		const div = document.querySelector("#DIGITAL_CLIMATE_STRIKE");
@@ -57,21 +55,13 @@ exports.helloWorld = async (req, res) => {
 	try {
 		if (!req.body.content)
 			throw new Error(
-				"You need to provide the content of tweet inside the body of request"
+				"You need to provide the code inside the body of the request"
 			);
 
-		const { content } = req.body;
+		const { content: code, language = "text" } = req.body;
 
-		if (REGEX.test(content)) {
+		if (!!code.trim()) {
 			const timeout = 2000;
-
-			const contentMatches = content.match(REGEX);
-
-			const language = contentMatches[1];
-
-			const code = contentMatches[2];
-
-			console.log(code);
 
 			const browser = await puppeteer.launch({
 				args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -103,7 +93,6 @@ exports.helloWorld = async (req, res) => {
 				throw new Error("Cannot get export container bounding box");
 
 			const buffer = await exportContainer.screenshot({
-				path: "example.png",
 				encoding: "binary",
 				clip: {
 					...elementBounds,
@@ -112,16 +101,11 @@ exports.helloWorld = async (req, res) => {
 				},
 			});
 
-			// Wait some more as `waitUntil: 'load'` or `waitUntil: 'networkidle0'
-			// is not always enough, see https://goo.gl/eTuogd
 			await page.waitFor(timeout);
-			// Close browser
+
 			await browser.close();
 
-			res.send({
-				language,
-				code,
-			});
+			res.contentType("image/jpeg").end(buffer, "binary");
 		} else {
 			throw new Error("Not a valid code");
 		}
