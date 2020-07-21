@@ -110,6 +110,7 @@ exports.helloWorld = async (req, res) => {
 			throw new Error("Not a valid code");
 		}
 	} catch (e) {
+		console.error(e);
 		res.status(500).send({
 			data: {
 				error: e.message,
