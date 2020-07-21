@@ -60,6 +60,8 @@ exports.helloWorld = async (req, res) => {
 
 		const { content: code, language = "text" } = req.body;
 
+		console.info("Request:", req.body);
+
 		if (!!code.trim()) {
 			const timeout = 2000;
 
