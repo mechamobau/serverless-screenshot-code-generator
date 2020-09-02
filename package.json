@@ -11,8 +11,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@google-cloud/functions-framework": "^1.6.0",
-		"puppeteer": "^5.2.0"
+		"@google-cloud/functions-framework": "^1.7.1",
+		"puppeteer": "^5.2.1"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.4"
