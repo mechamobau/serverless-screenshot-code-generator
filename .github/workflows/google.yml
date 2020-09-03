@@ -25,6 +25,9 @@ jobs:
           service_account_email: ${{ secrets.GCF_EMAIL }}
           service_account_key: ${{ secrets.GCF_KEY }}
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build project
         run: npm run build
 
