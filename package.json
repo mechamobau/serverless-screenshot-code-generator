@@ -1,20 +1,21 @@
 {
-	"name": "urban-journey",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "functions-framework --target=helloWorld",
-		"dev": "nodemon --exec npm start"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"@google-cloud/functions-framework": "^1.7.1",
-		"puppeteer": "^5.2.1"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.4"
-	}
+  "name": "urban-journey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "functions-framework --target=helloWorld",
+    "dev": "nodemon --exec npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^1.7.1",
+    "puppeteer": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1"
+  }
 }
