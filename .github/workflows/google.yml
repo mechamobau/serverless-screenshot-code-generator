@@ -21,9 +21,12 @@ jobs:
       # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: "270.0.0"
+          version: '270.0.0'
           service_account_email: ${{ secrets.GCF_EMAIL }}
           service_account_key: ${{ secrets.GCF_KEY }}
+
+      - name: Build project
+        run: npm run build
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
