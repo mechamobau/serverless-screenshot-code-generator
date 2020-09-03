@@ -32,7 +32,7 @@ const getCodeScreenshot = ({ language, code }: Code) => async (
   if (!elementBounds)
     throw new Error('Cannot get export container bounding box');
 
-  return await codeContainerElement.screenshot({
+  const screenshot = await codeContainerElement.screenshot({
     encoding: 'binary',
     clip: {
       ...elementBounds,
@@ -40,6 +40,10 @@ const getCodeScreenshot = ({ language, code }: Code) => async (
       height: Math.round(elementBounds.height) - 1,
     },
   });
+
+  await browser.close();
+
+  return screenshot;
 };
 
 export default getCodeScreenshot;
