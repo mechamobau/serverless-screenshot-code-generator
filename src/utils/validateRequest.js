@@ -1,16 +1,16 @@
 const validateRequest = (body) => {
-	if (!body.content)
-		throw new Error(
-			"You need to provide the code inside the body of the request"
-		);
+  if (!body.content)
+    throw new Error(
+      'You need to provide the code inside the body of the request',
+    );
 
-	const { content: code, language = "text" } = body;
+  const { content: code, language = 'text' } = body;
 
-	if (code.trim() === "") throw new Error("This is not a valid code");
+  if (code.trim() === '') throw new Error('This is not a valid code');
 
-	console.info("Request:", body);
+  console.info('Request:', body);
 
-	return { code, language };
+  return { code, language };
 };
 
 module.exports = validateRequest;

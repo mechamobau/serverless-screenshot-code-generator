@@ -1,3 +1,3 @@
-const main = require("./src/main");
+const main = require('./src/main');
 
-exports["helloWorld"] = main;
+exports['helloWorld'] = main;
