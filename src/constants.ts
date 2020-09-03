@@ -1,4 +1,4 @@
-const defaultCarbonConfig = {
+export const defaultCarbonConfig = {
   // Theme
   t: 'dracula',
   // Language
@@ -38,5 +38,3 @@ const defaultCarbonConfig = {
   // 1x, 2x, 4x
   es: '2x',
 };
-
-exports.defaultCarbonConfig = defaultCarbonConfig;

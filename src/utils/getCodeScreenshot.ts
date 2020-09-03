@@ -1,7 +1,12 @@
-const qs = require('querystring');
-const { defaultCarbonConfig } = require('../constants');
+import qs from 'querystring';
+import { defaultCarbonConfig } from '../constants';
+import { Code } from '../@types/code';
 
-const getCodeScreenshot = (language, code) => async (browser) => {
+import type { Browser } from 'puppeteer';
+
+const getCodeScreenshot = ({ language, code }: Code) => async (
+  browser: Browser,
+) => {
   const page = await browser.newPage();
 
   await page.setViewport({
@@ -37,4 +42,4 @@ const getCodeScreenshot = (language, code) => async (browser) => {
   });
 };
 
-module.exports = getCodeScreenshot;
+export default getCodeScreenshot;
