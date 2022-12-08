@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
-
+    name: 'Tests pipeline'
     steps:
       - uses: actions/checkout@v3
 
