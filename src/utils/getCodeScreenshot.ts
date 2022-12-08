@@ -1,6 +1,6 @@
 import qs from 'querystring';
 import { defaultCarbonConfig } from '../constants';
-import Code from '../@types/Code';
+import Code from '../types/Code';
 
 import type { Browser } from 'puppeteer';
 
