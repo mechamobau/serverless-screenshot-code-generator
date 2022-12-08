@@ -1,49 +1,51 @@
 import qs from 'querystring';
 import { defaultCarbonConfig } from '../constants';
-import { Code } from '../@types/code';
+import Code from '../types/Code';
 
 import type { Browser } from 'puppeteer';
 
-const getCodeScreenshot = ({ language, code }: Code) => async (
-  browser: Browser,
-) => {
-  const page = await browser.newPage();
+function getCodeScreenshot({ language, code }: Code) {
+  return async (browser: Browser) => {
+    const page = await browser.newPage();
 
-  await page.setViewport({
-    width: 1280,
-    height: 720,
-    deviceScaleFactor: 2,
-  });
+    await page.setViewport({
+      width: 1280,
+      height: 720,
+      deviceScaleFactor: 2,
+    });
 
-  const params = qs.stringify({
-    ...defaultCarbonConfig,
-    code,
-    l: language.toLowerCase(),
-  });
+    const params = qs.stringify({
+      ...defaultCarbonConfig,
+      code,
+      l: language.toLowerCase(),
+    });
 
-  const url = `https://carbon.now.sh/?${params}`;
+    const url = `https://carbon.now.sh/?${params}`;
 
-  await page.goto(url);
+    await page.goto(url);
 
-  const codeContainerElement = await page.waitForSelector('#export-container');
+    const codeContainerElement = await page.waitForSelector(
+      '#export-container',
+    );
 
-  const elementBounds = await codeContainerElement.boundingBox();
+    const elementBounds = await codeContainerElement?.boundingBox();
 
-  if (!elementBounds)
-    throw new Error('Cannot get export container bounding box');
+    if (!elementBounds)
+      throw new Error('Cannot get export container bounding box');
 
-  const screenshot = await codeContainerElement.screenshot({
-    encoding: 'binary',
-    clip: {
-      ...elementBounds,
-      x: Math.round(elementBounds.x),
-      height: Math.round(elementBounds.height) - 1,
-    },
-  });
+    const screenshot =
+      (await codeContainerElement?.screenshot({
+        encoding: 'binary',
+        clip: {
+          ...elementBounds,
+          x: Math.round(elementBounds.x),
+          height: Math.round(elementBounds.height) - 1,
+        },
+      })) ?? null;
 
-  await browser.close();
+    await browser.close();
 
-  return screenshot;
-};
-
+    return screenshot;
+  };
+}
 export default getCodeScreenshot;

@@ -1,4 +1,4 @@
-import { Code } from '../@types/code';
+import Code from '../types/Code';
 
 const validateRequest = ({ code, language = 'text' }: Partial<Code>) => {
   console.info('Request:', { code, language });
